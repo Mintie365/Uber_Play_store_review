@@ -1,0 +1,44 @@
+CLEANING SUMMARY
+============================================================
+Input file: D:\year4sem2\dsai4205\group\data\UberCustomerReviews.csv
+Raw shape: 2675 rows × 13 cols
+
+[1] Dropped columns
+Dropped columns: ['review_title', 'review_id', 'user_name', 'developer_response', 'developer_response_date', 'laguage_code', 'country_code', 'source']
+
+[2] Soft cleaning result
+Rows before soft filter: 2675
+Rows after soft filter:  2674
+Rows before dedup:       2674
+Rows after dedup:        2674
+Soft cleaned shape:      2674 rows × 16 cols
+
+[3] Strict English-like result
+Strict cleaned shape:    2503 rows × 16 cols
+Rows removed by strict English/corruption filter: 171
+
+[4] Noise statistics in soft cleaned data
+non_english_or_corrupted_risk = 1: 171
+text_word_count <= 1:             619
+text_word_count <= 3:             1232
+
+[5] Rating distribution (soft cleaned)
+rating
+1     710
+2     104
+3     125
+4     208
+5    1527
+
+[6] Rating distribution (strict cleaned)
+rating
+1     647
+2     100
+3     120
+4     197
+5    1439
+
+[7] Output files
+D:\year4sem2\dsai4205\group\data_cleaned\cleaned_reviews_soft.csv
+D:\year4sem2\dsai4205\group\data_cleaned\cleaned_reviews_strict_en.csv
+D:\year4sem2\dsai4205\group\data_cleaned\cleaning_summary.txt
