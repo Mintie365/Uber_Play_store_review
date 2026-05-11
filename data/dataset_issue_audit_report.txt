@@ -1,0 +1,130 @@
+DATASET ISSUE AUDIT REPORT
+======================================================================
+Input file: D:\year4sem2\dsai4205\group\data\UberCustomerReviews.csv
+This script only audits the dataset and does NOT clean or modify it.
+
+[1] BASIC STRUCTURE
+Shape: 2675 rows × 13 columns
+Columns:
+  - source (object)
+  - review_id (object)
+  - user_name (object)
+  - review_title (object)
+  - review_description (object)
+  - rating (int64)
+  - thumbs_up (float64)
+  - review_date (object)
+  - developer_response (object)
+  - developer_response_date (object)
+  - appVersion (object)
+  - laguage_code (object)
+  - country_code (object)
+
+[2] MISSING VALUE ANALYSIS
+Total missing cells: 7715
+  - review_title: 2668 (99.74%)
+  - developer_response_date: 2212 (82.69%)
+  - developer_response: 2209 (82.58%)
+  - appVersion: 619 (23.14%)
+  - thumbs_up: 7 (0.26%)
+  - review_description: 0 (0.00%)
+  - user_name: 0 (0.00%)
+  - review_id: 0 (0.00%)
+  - source: 0 (0.00%)
+  - review_date: 0 (0.00%)
+  - rating: 0 (0.00%)
+  - laguage_code: 0 (0.00%)
+  - country_code: 0 (0.00%)
+
+[3] DUPLICATE ANALYSIS
+Fully duplicated rows: 0
+Duplicated review_id rows: 0
+Duplicated review_description rows: 619
+Duplicated rows by ['user_name', 'review_description', 'review_date']: 0
+
+[4] TARGET LABEL (RATING) ANALYSIS
+Invalid or missing rating rows: 0
+Rating distribution:
+  - 1: 710 (26.54%)
+  - 2: 104 (3.89%)
+  - 3: 125 (4.67%)
+  - 4: 208 (7.78%)
+  - 5: 1528 (57.12%)
+Imbalance ratio (largest class / smallest class): 14.69
+Interpretation: higher ratio means stronger class imbalance.
+
+[5] CONSTANT OR LOW-INFORMATION COLUMNS
+  - source: unique_non_null=2, top_values={'Google Play': 2668, 'App Store': 7}
+  - review_id: unique_non_null=2675, top_values={'5cfd6c38-a849-4201-a104-04188f08f7c8': 1, 'ca1b9370-4756-48c0-bd3f-ec62f16c81d7': 1, '25cfb38f-895b-4be9-970d-3b7f6b450d8a': 1}
+  - user_name: unique_non_null=1485, top_values={'A Google user': 1190, 'Anil Kumar': 2, 'Tracey Glasse': 1}
+  - review_title: unique_non_null=7, top_values={nan: 2668, 'Uber Accessory Helping Drivers Skimming Cash': 1, 'Uber Pool Update': 1}
+  - review_description: unique_non_null=2056, top_values={'Good': 166, 'Nice': 73, 'Excellent': 44}
+  - rating: unique_non_null=5, top_values={5: 1528, 1: 710, 4: 208}
+  - thumbs_up: unique_non_null=37, top_values={0.0: 2464, 1.0: 117, 2.0: 21}
+  - review_date: unique_non_null=2675, top_values={'2021-05-20 21:41:45': 1, '2022-08-27 12:53:49': 1, '2019-11-16 23:29:26': 1}
+  - developer_response: unique_non_null=433, top_values={nan: 2209, "Hi, we're always looking to improve your experience with Uber. Anything specific we can look into for you? Let us know by sending a quick note to t.uber.com/contact and we'll connect.": 9, "We're always looking to improve your experience with Uber. Anything specific we can look into for you? Let us know by sending a quick note to t.uber.com/contact and we'll connect.": 7}
+  - developer_response_date: unique_non_null=463, top_values={nan: 2212, '2019-02-09 06:03:01': 1, '2019-08-22 10:32:48': 1}
+  - appVersion: unique_non_null=333, top_values={nan: 619, '4.451.10003': 37, '4.422.10002': 34}
+  - laguage_code: unique_non_null=1, top_values={'en': 2675}
+  - country_code: unique_non_null=1, top_values={'in': 2675}
+
+[6] TEXT FIELD DIAGNOSTICS
+Detected text column: review_description
+Blank text rows: 0
+Rows that look like pure noise: 0
+Average char length: 74.21
+Median char length: 24.00
+Average word length: 13.72
+Median word length: 4.00
+Very short reviews (<=1 word): 620
+Long-text outliers by IQR: 286 (threshold > 37.00 words)
+has_url: 0 (0.00%)
+has_email: 0 (0.00%)
+has_html: 0 (0.00%)
+has_non_ascii: 176 (6.58%)
+has_digit: 263 (9.83%)
+has_only_punct_or_space: 0 (0.00%)
+has_repeated_char_pattern: 37 (1.38%)
+
+Language risk checks:
+Rows containing non-ASCII characters: 176
+Rows with low ASCII-English-like ratio (<0.5): 49
+langdetect is not installed. Language detection skipped.
+Install with: pip install langdetect
+
+Examples of suspicious / potentially non-English / noisy reviews:
+  1. Essa p0hh@ nÃ£o aceita nem o meu CPF, n abre com Facebook pra confirmar e nem desengasga com nenhum dos meus cartÃµes. Lixo puro, escuma; basculho.
+  2. Thatâs basically what it is. Drivers numerous times chats with me negotiating higher fares and after I tell them no, they go around the blocks and then cancel. Next thing Uber is charging me for not
+  3. Bueno , me parece que la tarifa mÃ­nima subiÃ³ en barbaridad de un momento a otro antes la tarifa mÃ­nima estaba en 25 y de repente ahora por la misma distancia me salen en 38.61 mas o menos que realm
+  4. driver cancelled and i Ride the same driver why you always charge me ? its not first time you did this ð¡
+  5. Ø£ÙØ§ Ø¨Ø³ØªØ®Ø¯Ù Ø§ÙØ§Ø¨ÙÙÙØ´Ù ÙÙ 6 Ø³ÙÙÙ ÙÙØ§Ù ÙÙØªØ§Ø² Ø­Ø§ÙÙØ§ Ø®Ø¯ÙØ© Ø§ÙØ¹ÙÙØ§Ø¡ Ø³ÙØ¦Ø© Ø¬Ø¯Ø§ Ø¬Ø¯Ø§ Ø¨Ø­Ø§ÙÙ Ø¢ÙØªØ± ÙÙ Ø£Ø³Ø¨ÙØ¹ Ø£ÙØ¯Ù Ø´ÙÙÙ ÙÙØ­Ø¯Ø´ Ù
+  6. ð¡ð¡ð¡ð¡ð¡ð¡ð¡ faltu
+  7. PÃ©sima aplicaciÃ³n, se demoran mucho los conductores, muchas veces se encuentran del otro lado de la ciudad y cobran mÃ¡s por venir. No hay como cancelar el viaje si estÃ¡ lejos o si cobra como mucho
+  8. The worst Customer care services i would say. I filed a complain over an outrageous issue which i encountered. A month past and they still hasn't get back to me nor done nothing about it at all. Excel
+  9. Awful, was stranded before Lyft was.able to pick me up ð never using Uber again
+  10. This app is getting worse day by day after recent updates... totally inconvenient....poor service....It takes me half an hour to book a cab/auto when am getting late for my classes being a student m f
+
+[7] METADATA FIELD DIAGNOSTICS
+Unparseable review_date rows: 0
+Unparseable developer_response_date rows (including missing/non-date text): 2212
+Missing appVersion rows: 619
+Unique appVersion values: 333
+Top 10 appVersion values: {nan: 619, '4.451.10003': 37, '4.422.10002': 34, '4.346.10006': 31, '4.439.10002': 26, '4.426.10002': 25, '4.240.10001': 21, '4.334.10002': 19, '4.434.10002': 18, '4.424.10000': 18}
+
+[8] MODELLING RISK CHECKS
+Potential modelling concerns to consider:
+  - Class imbalance in rating
+  - Non-English or mixed-language reviews
+  - Very short reviews that may be hard to classify
+  - Long complaint-style reviews that may dominate vocabulary
+  - developer_response may be useful as a feature, but should not be merged into the user review text blindly
+  - review_id and user_name should not be used as text features
+
+[9] RECOMMENDED NEXT ACTIONS (DO NOT CLEAN YET)
+Recommended workflow:
+  1. Confirm whether non-English reviews are frequent enough to require filtering or special handling.
+  2. Check whether very short reviews are truly informative before dropping anything.
+  3. Decide whether review_title should be dropped based on missingness and usefulness.
+  4. Keep class imbalance as a modelling issue, not a cleaning issue.
+  5. After diagnosis, design a task-aware cleaning plan instead of applying a blind standard pipeline.
+
